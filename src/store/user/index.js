@@ -9,11 +9,11 @@ const getters = {
 }
 
 const actions = {
-  getUsers ({ commit }, data) {
+  getUser ({ commit }, data) {
     return new Promise((resolve, reject) => {
-      API_URL.get('users', data)
+      API_URL.get('auth/user', data)
         .then(responese => {
-          commit('GET_USERS', responese.data)
+          commit('GET_USER', responese.data)
           resolve(responese)
         })
         .catch(error => {
@@ -24,7 +24,7 @@ const actions = {
 }
 
 const mutations = {
-  GET_USERS (state, payload) {
+  GET_USER (state, payload) {
     state.users = Object.values(payload)
   }
 }

@@ -101,7 +101,7 @@ export default {
   methods: {
     ...mapActions({
       logout: 'auth/logout',
-      getUsers: 'user/getUsers'
+      getUser: 'user/getUser'
     }),
     logoutUser () {
       if (localStorage.getItem('user-token')) {
@@ -113,7 +113,7 @@ export default {
     }
   },
   mounted () {
-    this.getUsers()
+    this.getUser()
     console.log(this.users)
   }
 }

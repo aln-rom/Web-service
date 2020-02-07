@@ -15,9 +15,6 @@ const mutations = {
   },
   AUTH_LOGOUT (state) {
     state.token = ''
-  },
-  GET_USERS (state, payload) {
-    state.users = Object.values(payload)
   }
 }
 
