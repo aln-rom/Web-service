@@ -89,8 +89,7 @@ export default {
   data () {
     return {
       tab: 'prof',
-      splitterModel: 20,
-      name: null
+      splitterModel: 20
     }
   },
   computed: {
@@ -114,7 +113,6 @@ export default {
   },
   mounted () {
     this.getUser()
-    console.log(this.users)
   }
 }
 </script>

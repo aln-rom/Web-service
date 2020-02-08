@@ -11,6 +11,8 @@
             <q-btn color="dark" class="q-mx-md q-my-md" to="/registration" style="width: 93%" label="Зарегистрироваться" />
           </div>
         </q-card>
+        {{error}}
+
       </div>
     </div>
   </q-page>
@@ -24,25 +26,23 @@ export default {
     return {
       user: {
         password: null,
-        email: null
+        email: null,
+        error: null
       }
     }
   },
   methods: {
     ...mapActions({
-      login: 'auth/login',
-      logout: 'auth/logout'
+      login: 'auth/login'
     }),
     loginUser () {
       this.login(this.user)
         .then(() => {
           this.$router.push('/profile')
         })
-    },
-    logoutUser () {
-      if (localStorage.getItem('user-token')) {
-        this.logout(this.user)
-      }
+        .catch(() => {
+          this.show = true
+        })
     }
   }
 }

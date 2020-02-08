@@ -11,6 +11,9 @@ const getters = {
 const actions = {
   getUser ({ commit }, data) {
     return new Promise((resolve, reject) => {
+      if (localStorage.getItem('user-token')) {
+        API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('user-token')
+      }
       API_URL.get('auth/user', data)
         .then(responese => {
           commit('GET_USER', responese.data)

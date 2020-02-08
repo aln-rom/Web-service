@@ -5,13 +5,13 @@ const state = {
 }
 
 const getters = {
-  users: state => state.users
+  message: state => state.message
 }
 
 const mutations = {
   AUTH_SUCCESS (state, data) {
     state.token = data.token
-    state.user = data.user
+    state.message = data.message
   },
   AUTH_LOGOUT (state) {
     state.token = ''
@@ -24,11 +24,11 @@ const actions = {
       API_URL.post('auth/login', data)
         .then((response) => {
           const token = response.data.token
-          const user = response.data.user
+          const message = response.data.message
           commit('AUTH_SUCCESS', token)
-          commit('AUTH_SUCCESS', user)
+          commit('AUTH_SUCCESS', message)
+          console.log(message)
           localStorage.setItem('user-token', token)
-          localStorage.setItem('user', user)
           API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + token
           console.log(response)
           resolve(response)
@@ -48,7 +48,6 @@ const actions = {
           commit('AUTH_LOGOUT')
           delete API_URL.defaults.headers.common['Authorization']
           localStorage.removeItem('user-token')
-          localStorage.removeItem('user')
           resolve(response)
         })
         .catch(error => {
