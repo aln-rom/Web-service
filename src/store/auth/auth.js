@@ -5,7 +5,6 @@ const state = {
 }
 
 const getters = {
-  message: state => state.message
 }
 
 const mutations = {
@@ -24,10 +23,7 @@ const actions = {
       API_URL.post('auth/login', data)
         .then((response) => {
           const token = response.data.token
-          const message = response.data.message
           commit('AUTH_SUCCESS', token)
-          commit('AUTH_SUCCESS', message)
-          console.log(message)
           localStorage.setItem('user-token', token)
           API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + token
           console.log(response)
@@ -58,15 +54,51 @@ const actions = {
         })
     })
   },
-  updateAuth () {
-    const token = localStorage.getItem('user-token')
-    if (token) {
-      API_URL.defaults.headers.common['Authorization'] = 'Bearer' + token
-    }
-  },
   register ({ commit }, data) {
     return new Promise((resolve, reject) => {
       API_URL.post(`auth/register`, data)
+        .then((response) => {
+          const token = response.data.token
+          localStorage.setItem('user-token', token)
+          commit('AUTH_SUCCESS', token)
+          API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + token
+          console.log(response.data)
+          resolve(response)
+        })
+        .catch((error) => {
+          console.log(error)
+          reject(error)
+        })
+    })
+  },
+  registerVK ({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      const href = location.href
+      const index = href.split('=')
+      const url = index.splice(1, 2)
+      console.log(url[0].slice(0, -2))
+      API_URL.get(`auth/vk/callback?code=` + url[0].slice(0, -2), data)
+        .then((response) => {
+          const token = response.data.token
+          localStorage.setItem('user-token', token)
+          commit('AUTH_SUCCESS', token)
+          API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + token
+          console.log(response.data)
+          resolve(response)
+        })
+        .catch((error) => {
+          console.log(error)
+          reject(error)
+        })
+    })
+  },
+  registerGoogle ({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      const href = location.href
+      const index = href.split('=')
+      const url = index.splice(1, 2)
+      console.log(url[0].slice(0, -2))
+      API_URL.get(`auth/google/callback?code=` + url[0].slice(0, -2), data)
         .then((response) => {
           const token = response.data.token
           localStorage.setItem('user-token', token)

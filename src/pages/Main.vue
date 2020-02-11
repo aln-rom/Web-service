@@ -26,8 +26,43 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  data () {
+    return {
+      href: null,
+      index: null,
+      url: null
+    }
+  },
+  mounted () {
+    this.href = location.href
+    this.index = this.href.split('=')
+    this.url = this.index.splice(1, 2)
+    this.url = this.url[0].slice(0, -2)
+    console.log(this.url)
+    this.registerUserVK()
+    this.registerUserGoogle()
+  },
+  methods: {
+    ...mapActions({
+      registerVK: 'auth/registerVK',
+      registerGoogle: 'auth/registerGoogle'
+    }),
+    registerUserVK () {
+      this.registerVK(this.user)
+        .then(() => {
+          this.$router.push('/profile')
+        })
+    },
+    registerUserGoogle () {
+      this.registerGoogle(this.user)
+        .then(() => {
+          this.$router.push('/profile')
+        })
+    }
+  }
 }
 </script>
 
