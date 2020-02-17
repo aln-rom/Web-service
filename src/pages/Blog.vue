@@ -3,12 +3,11 @@
     <div class="q-gutter-y-md col-8 offset-2" >
         <q-tabs
             v-model="tab"
-            dense
-            class="text-grey"
+            class="text-grey "
             active-color="dark"
             indicator-color="yellow"
             align="justify"
-            narrow-indicator >
+             >
           <q-tab name="articles" label="Статьи" />
           <q-tab name="tran" label="Трансляции" />
         </q-tabs>

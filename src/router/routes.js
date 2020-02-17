@@ -29,6 +29,7 @@ const routes = [
           }
         }
       },
+      { path: 'password', component: () => import('pages/Password.vue') },
       { path: 'profile',
         component: () => import('pages/Profile.vue'),
         beforeEnter: (to, from, next) => {
