@@ -49,7 +49,31 @@
             <q-tab-panel name="registration">
               <div class="text-mini">Зарегистрируйтесь в системе для доступа к образовательным курсам</div>
               <q-input outlined type="text" class=" q-my-md" v-model="user.email" placeholder="Введите ваш е-mail" />
-              <q-btn color="yellow" class="q-my-md" size="16px"  style="width: 100%" label="Далее" />
+              <q-input v-model="user.password"  :type="isPwd ? 'password' : 'text'"
+                       placeholder="Введите пароль..."
+                       outlined
+                       class="q-my-md">
+                <template v-slot:append>
+                  <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+              <q-input v-model="user.password_confirmation"  :type="isPwd ? 'password' : 'text'"
+                       placeholder="Повторите пароль..."
+                       outlined
+                       class="q-my-md">
+                <template v-slot:append>
+                  <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+              <q-btn color="yellow" class="q-my-md" @click="registerUser" size="16px"  style="width: 100%" label="Далее" />
             </q-tab-panel>
           </q-tab-panels>
         </q-card>
@@ -69,22 +93,27 @@ export default {
       user: {
         password: null,
         email: null,
-        error: null
+        password_confirmation: null
       },
-      tab: 'login'
+      tab: 'login',
+      isPwd: true
     }
   },
   methods: {
     ...mapActions({
-      login: 'auth/login'
+      login: 'auth/login',
+      register: 'auth/register'
     }),
     loginUser () {
       this.login(this.user)
         .then(() => {
           this.$router.push('/profile')
         })
-        .catch(() => {
-          this.show = true
+    },
+    registerUser () {
+      this.register(this.user)
+        .then(() => {
+          this.$router.push('/')
         })
     }
   }

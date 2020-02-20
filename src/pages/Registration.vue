@@ -2,24 +2,22 @@
   <q-page>
     <div class="row flex justify-center">
       <div class="col-4">
-        <q-card class="my-card col-4 q-col-gutter-md q-my-lg">
-          <div class="text-h6 rus text-grey-8" align="center">Регистарция</div>
-          <div class="q-mx-lg">
-            <q-input outlined type="text" class=" q-ma-md" v-model="user.first_name" placeholder="Имя" />
-            <q-input outlined type="text" class="q-ma-md" v-model="user.last_name" placeholder="Фамилия" />
-            <q-input outlined type="text" class=" q-ma-md" v-model="user.email" placeholder="E-mail" />
-            <q-input outlined type="text" class="q-ma-md" v-model="user.password" placeholder="Пароль" />
-            <q-input outlined type="text" class="q-ma-md" v-model="user.password_confirmation" placeholder="Подтверждение пароля" />
-            <q-btn color="dark" class="q-mx-md q-my-xs" @click="registerUser" style="width: 93%" label="Зарегестрироваться" />
-            <a class="txt" href="https://oauth.vk.com/authorize?client_id=7315382&redirect_uri=http%3A%2F%2F127.0.0.1%3A8081&scope=email&response_type=code">
-              <q-btn color="dark" class="q-mx-md q-my-xs" style="width: 93%" label="ВК" />
-            </a>
-            <a class="txt" href="https://accounts.google.com/signin/oauth/oauthchooseaccount?client_id=217991563041-24mhrqea2jnlv4gjrgbddrfqhdqoo84v.apps.googleusercontent.com&as=HIo9zz6tmoJunPwhM1vRWQ&destination=http%3A%2F%2F127.0.0.1%3A8081&approval_state=!ChRwSVpfcFpyQkJqS29JZGh2ZUJfdhIfQXpHeEduT2p3dUVjOERFdWhZOThQY19WVUZKWUF4Yw%E2%88%99AJDr988AAAAAXkREe11iKAd4yRMzzmSerysIgEXZGPJ_&oauthgdpr=1&xsrfsig=ChkAeAh8TzUrt8tCd6Rxl_1Akn9Hh_xhUUu1Eg5hcHByb3ZhbF9zdGF0ZRILZGVzdGluYXRpb24SBXNvYWN1Eg9vYXV0aHJpc2t5c2NvcGU&flowName=GeneralOAuthFlow">
-              <q-btn color="dark" class="q-mx-md q-my-xs" style="width: 93%" label="ГУГЛ" />
-            </a>
-            <q-btn color="dark" class="q-mx-md q-my-md" to="/login" style="width: 93%" label="Вход" />
+        <q-card flat class="my-card col-4 q-col-gutter-xs q-my-md q-py-xl q-mx-md">
+          <div class="text-h5 q-my-md">Заполнение данных</div>
+          <div class="text-mini q-my-md">Чтобы продолжить работу с платформой, заполните свои личные данные</div>
+          <div class="text-mini q-my-md">Ваш пол</div>
+          <div class="q-my-md">
+            <q-radio keep-color v-model="shape" val="m" label="Мужской" color="yellow" />
+            <q-radio keep-color v-model="shape" val="w" label="Женский" color="yellow" />
           </div>
+          <q-input outlined type="text" class=" q-my-md" v-model="user.first_name" placeholder="Имя..." />
+          <q-input outlined type="text" class=" q-my-md" v-model="user.last_name" placeholder="Фамилия..." />
+          <q-input outlined type="text" class=" q-my-md" v-model="user.birth_date" placeholder="Дата рождения.." />
+          <q-input outlined type="text" class=" q-my-md" v-model="user.phone_number" placeholder="Телефон..." />
+          <q-btn color="yellow" class="q-my-md q-mx-xs" size="16px" @click="registerUser" style="width: 100%" label="Завершить регистрацию" />
         </q-card>
+        {{error}}
+
       </div>
     </div>
   </q-page>
@@ -32,30 +30,46 @@ export default {
   data () {
     return {
       user: {
-        first_name: null,
-        last_name: null,
-        email: null,
         password: null,
-        password_confirmation: null
-      }
+        email: null,
+        error: null
+      },
+      tab: 'login',
+      isPwd: false,
+      color: 'cyan'
     }
   },
   methods: {
     ...mapActions({
-      register: 'auth/register',
-      registerVK: 'auth/vk'
+      login: 'auth/login'
     }),
-    registerUser () {
-      this.register(this.user)
+    loginUser () {
+      this.login(this.user)
         .then(() => {
-          this.$router.push('/')
+          this.$router.push('/profile')
+        })
+        .catch(() => {
+          this.show = true
         })
     }
   }
 }
 </script>
 <style>
-  .txt {
-    text-decoration: none;
+  .title-button{
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 0.18px;
+  }
+  .text-mini, .text-mini-y{
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+  }
+  .text-mini-y{
+    color: #FFA000;
+  }
+  .text-mini{
+    color: rgba(0, 0, 0, 0.6);
   }
 </style>

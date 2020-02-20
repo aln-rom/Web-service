@@ -1,85 +1,85 @@
 <template>
-  <div>
-    <q-splitter
-        v-model="splitterModel"
-        style="height: auto">
+  <div class="row q-ma-lg">
+    <div class="col-3  q-ma-lg">
+      <div class="q-ma-md">
+        <img class="photo" :src="users[0].avatar_url">
+      </div>
+      <div class="text-h5 q-ma-md"> {{users[0].first_name}} {{users[0].last_name}}
+      </div>
+      <div class="text-sublime1 text-dark q-ma-md" >{{users[0].email}}
+      </div>
+      <div class="row">
+          <q-btn color="yellow" outline class="q-mx-md q-my-md" @click="logoutUser" style="width: 93%" label="Редактировать" />
+        <q-separator class="q-ma-md"/>
+      </div>
+      <div class="text-h6 q-mx-md"> Последние достижения</div>
+    </div>
+    <div class="col-8 q-ma-lg">
+      <div class="row">
+        <div class="col-6">
+          <q-tabs
+              v-model="tab"
+              class="text-yellow"
+              active-color="yellow"
+              indicator-color="yellow"
+              align="justify"
+          >
+            <q-tab name="courses" label="Курсы" />
+            <q-tab name="favorites" label="Сохранённые статьи" />
+            <q-tab name="progress" label="Достижения" />
+          </q-tabs>
+        </div>
+      </div>
 
-      <template v-slot:before>
-        <q-tabs
-            v-model="tab"
-            vertical
-            class="text-dark">
-          <q-tab name="prof" label="Профиль" no-caps/>
-          <q-tab name="course" label="Курсы"  no-caps/>
-          <q-tab name="progress" label="Достижения" no-caps/>
-          <q-tab name="like" label="Избранное" no-caps/>
-        </q-tabs>
-      </template>
+      <q-tab-panels v-model="tab" animated class=" col-7">
+      <q-tab-panel name="courses">
+        <q-card class="my-card q-my-lg text-dark">
+          <q-card-section class="q-pa-md">
+            <div class="text-h5 txt">{{users[0].courses[0].title}}</div>
+            <div class="text-sublime2 txt">{{users[0].courses[0].description}}</div>
+          </q-card-section>
+        </q-card>
+      </q-tab-panel>
 
-      <template v-slot:after>
-        <q-tab-panels
-            v-model="tab"
+      <q-tab-panel name="progress">
+        <q-stepper
+            v-model="step"
+            ref="stepper"
             animated
-            transition-prev="jump-up"
-            transition-next="jump-up"
-        >
-          <q-tab-panel name="prof">
-            <div class="text-h4 q-mb-md"> {{users[0].first_name}} {{users[0].last_name}}</div>
-            <p class="text-h6">О себе</p>
-            <q-btn color="dark" class="q-mx-md q-my-md" @click="logoutUser" style="width: 93%" label="Выйти" />
-          </q-tab-panel>
+            active-color="purple">
+          <q-step
+              :name="1"
+              prefix="1"
+              title="Новичок"
+          > </q-step>
+          <q-step
+              :name="2"
+              prefix="2"
+              title="Знаток"
+          > </q-step>
+          <q-step
+              :name="3"
+              prefix="3"
+              title="Профи"
+          > </q-step>
+        </q-stepper>
+      </q-tab-panel>
 
-          <q-tab-panel name="course">
-            <div class="text-h4 q-mb-md">Выбранные курсы</div>
-            <q-card class="my-card q-my-lg text-dark">
-              <q-card-section class="q-py-xl flex justify-center">
-                <div class="text-h4 txt">Front-end</div>
+      <q-tab-panel name="favorites">
+        <div class="q-pa-md">
+          <div class="row q-gutter-sm">
+            <q-card class="q-ma-sm col-5" v-for="index in 2" :key="index">
+              <img src="https://cdn.quasar.dev/img/mountains.jpg">
+              <q-card-section>
+                <div class="text-h6">Cтатья </div>
+                <div class="text-subtitle2">by John Doe</div>
               </q-card-section>
             </q-card>
-          </q-tab-panel>
-
-          <q-tab-panel name="progress">
-            <div class="text-h4 q-mb-md">Достижения</div>
-            <q-stepper
-                v-model="step"
-                ref="stepper"
-                animated
-                active-color="purple">
-            <q-step
-                :name="1"
-                prefix="1"
-                title="Новичок"
-            > </q-step>
-            <q-step
-                :name="2"
-                prefix="2"
-                title="Знаток"
-            > </q-step>
-              <q-step
-                  :name="3"
-                  prefix="3"
-                  title="Профи"
-              > </q-step>
-            </q-stepper>
-          </q-tab-panel>
-
-          <q-tab-panel name="like">
-            <div class="q-pa-md">
-              <div class="row justify-center q-gutter-sm">
-                  <q-card class="q-ma-sm col-5" v-for="index in 4" :key="index">
-                    <img src="https://cdn.quasar.dev/img/mountains.jpg">
-                    <q-card-section>
-                      <div class="text-h6">Cтатья </div>
-                      <div class="text-subtitle2">by John Doe</div>
-                    </q-card-section>
-                  </q-card>
-              </div>
-            </div>
-          </q-tab-panel>
-        </q-tab-panels>
-      </template>
-
-    </q-splitter>
+          </div>
+        </div>
+      </q-tab-panel>
+      </q-tab-panels>
+    </div>
   </div>
 </template>
 
@@ -88,7 +88,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      tab: 'prof',
+      tab: 'courses',
       splitterModel: 20
     }
   },
@@ -116,3 +116,12 @@ export default {
   }
 }
 </script>
+
+<style>
+  .photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid black;
+  }
+</style>

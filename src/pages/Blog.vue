@@ -12,8 +12,6 @@
           <q-tab name="tran" label="Трансляции" />
         </q-tabs>
 
-        <q-separator />
-
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="articles">
             <div class="q-pa-sm">
