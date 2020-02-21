@@ -51,13 +51,13 @@ export default {
       registerGoogle: 'auth/registerGoogle'
     }),
     registerUserVK () {
-      this.registerVK(this.user)
+      this.registerVK()
         .then(() => {
           this.$router.push('/profile')
         })
     },
     registerUserGoogle () {
-      this.registerGoogle(this.user)
+      this.registerGoogle()
         .then(() => {
           this.$router.push('/profile')
         })

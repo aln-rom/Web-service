@@ -6,13 +6,38 @@
           <div class="text-h5 q-my-md">Заполнение данных</div>
           <div class="text-mini q-my-md">Чтобы продолжить работу с платформой, заполните свои личные данные</div>
           <div class="text-mini q-my-md">Ваш пол</div>
-          <div class="q-my-md">
-            <q-radio keep-color v-model="shape" val="m" label="Мужской" color="yellow" />
-            <q-radio keep-color v-model="shape" val="w" label="Женский" color="yellow" />
+          <div class="q-gutter-sm">
+            <q-radio keep-color v-model="color" val="male" label="Мужской" color="yellow" />
+            <q-radio keep-color v-model="color" val="female" label="Женский" color="yellow" />
           </div>
+          <q-input outlined type="text" class=" q-my-md" v-model="user.email" placeholder="Введите ваш е-mail" />
+          <q-input v-model="user.password"  :type="isPwd ? 'password' : 'text'"
+                   placeholder="Введите пароль..."
+                   outlined
+                   class="q-my-md">
+            <template v-slot:append>
+              <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+          <q-input v-model="user.password_confirmation"  :type="isPwd ? 'password' : 'text'"
+                   placeholder="Повторите пароль..."
+                   outlined
+                   class="q-my-md">
+            <template v-slot:append>
+              <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
           <q-input outlined type="text" class=" q-my-md" v-model="user.first_name" placeholder="Имя..." />
           <q-input outlined type="text" class=" q-my-md" v-model="user.last_name" placeholder="Фамилия..." />
-          <q-input outlined type="text" class=" q-my-md" v-model="user.birth_date" placeholder="Дата рождения.." />
+          <q-input outlined type="date" class=" q-my-md" v-model="user.birth_date" placeholder="Дата рождения.." />
           <q-input outlined type="text" class=" q-my-md" v-model="user.phone_number" placeholder="Телефон..." />
           <q-btn color="yellow" class="q-my-md q-mx-xs" size="16px" @click="registerUser" style="width: 100%" label="Завершить регистрацию" />
         </q-card>
@@ -32,7 +57,11 @@ export default {
       user: {
         password: null,
         email: null,
-        error: null
+        password_confirmation: null,
+        first_name: null,
+        last_name: null,
+        birth_date: null,
+        phone_number: null
       },
       tab: 'login',
       isPwd: false,
@@ -41,15 +70,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'auth/login'
+      register: 'auth/register'
     }),
-    loginUser () {
-      this.login(this.user)
+    registerUser () {
+      this.register(this.user)
         .then(() => {
-          this.$router.push('/profile')
-        })
-        .catch(() => {
-          this.show = true
+          this.$router.push('/')
         })
     }
   }

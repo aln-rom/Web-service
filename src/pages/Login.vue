@@ -101,19 +101,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'auth/login',
-      register: 'auth/register'
+      login: 'auth/login'
     }),
     loginUser () {
       this.login(this.user)
         .then(() => {
           this.$router.push('/profile')
-        })
-    },
-    registerUser () {
-      this.register(this.user)
-        .then(() => {
-          this.$router.push('/')
         })
     }
   }

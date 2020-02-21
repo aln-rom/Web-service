@@ -9,12 +9,13 @@
       <div class="text-sublime1 text-dark q-ma-md" >{{users[0].email}}
       </div>
       <div class="row">
-          <q-btn color="yellow" outline class="q-mx-md q-my-md" @click="logoutUser" style="width: 93%" label="Редактировать" />
+          <q-btn color="yellow" outline class="q-mx-md q-my-md" to="/edit" style="width: 100%" label="Редактировать" />
         <q-separator class="q-ma-md"/>
       </div>
       <div class="text-h6 q-mx-md"> Последние достижения</div>
+      <q-btn color="yellow" flat no-caps class="q-my-lg" @click="logoutUser" label="Выйти" />
     </div>
-    <div class="col-8 q-ma-lg">
+    <div class="col-8 q-ma-lg q-my-lg q-py-xl">
       <div class="row">
         <div class="col-6">
           <q-tabs
@@ -35,8 +36,8 @@
       <q-tab-panel name="courses">
         <q-card class="my-card q-my-lg text-dark">
           <q-card-section class="q-pa-md">
-            <div class="text-h5 txt">{{users[0].courses[0].title}}</div>
-            <div class="text-sublime2 txt">{{users[0].courses[0].description}}</div>
+            <div class="text-h5 txt">{{users[0].courses}}</div>
+            <div class="text-sublime2 txt"></div>
           </q-card-section>
         </q-card>
       </q-tab-panel>

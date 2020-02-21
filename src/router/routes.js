@@ -30,6 +30,9 @@ const routes = [
         }
       },
       { path: 'password', component: () => import('pages/Password.vue') },
+      { path: 'registration_letter', component: () => import('pages/Registration_letter.vue') },
+      { path: 'success', component: () => import('pages/Success.vue') },
+      { path: 'edit', component: () => import('pages/Edit.vue') },
       { path: 'profile',
         component: () => import('pages/Profile.vue'),
         beforeEnter: (to, from, next) => {

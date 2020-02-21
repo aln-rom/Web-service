@@ -5,14 +5,13 @@ const state = {
 }
 
 const getters = {
-  users: state => state.users,
   token: state => state.token
 }
 
 const mutations = {
   AUTH_SUCCESS (state, data) {
     state.token = data.token
-    state.user = data.user
+    state.message = data.message
   },
   AUTH_LOGOUT (state) {
     state.token = ''
@@ -25,11 +24,8 @@ const actions = {
       API_URL.post('auth/login', data)
         .then((response) => {
           const token = response.data.token
-          const user = response.data.user
           commit('AUTH_SUCCESS', token)
-          commit('AUTH_SUCCESS', user)
           localStorage.setItem('user-token', token)
-          localStorage.setItem('user', user)
           API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + token
           console.log(response)
           resolve(response)
@@ -49,7 +45,6 @@ const actions = {
           commit('AUTH_LOGOUT')
           delete API_URL.defaults.headers.common['Authorization']
           localStorage.removeItem('user-token')
-          localStorage.removeItem('user')
           resolve(response)
         })
         .catch(error => {
@@ -59,12 +54,6 @@ const actions = {
           console.log(API_URL.defaults.headers.common['Authorization'])
         })
     })
-  },
-  updateAuth () {
-    const token = localStorage.getItem('user-token')
-    if (token) {
-      API_URL.defaults.headers.common['Authorization'] = 'Bearer' + token
-    }
   },
   register ({ commit }, data) {
     return new Promise((resolve, reject) => {
@@ -88,8 +77,8 @@ const actions = {
       const href = location.href
       const index = href.split('=')
       const url = index.splice(1, 2)
-      console.log(url[0].slice(0, -2))
-      API_URL.get(`auth/vk/callback?code=` + url[0].slice(0, -2), data)
+      console.log(url[0])
+      API_URL.get(`auth/vk/callback?code=` + url[0], data)
         .then((response) => {
           const token = response.data.token
           localStorage.setItem('user-token', token)
@@ -109,8 +98,8 @@ const actions = {
       const href = location.href
       const index = href.split('=')
       const url = index.splice(1, 2)
-      console.log(url[0].slice(0, -2))
-      API_URL.get(`auth/google/callback?code=` + url[0].slice(0, -2), data)
+      console.log(url[0])
+      API_URL.get(`auth/google/callback?code=` + url[0], data)
         .then((response) => {
           const token = response.data.token
           localStorage.setItem('user-token', token)
