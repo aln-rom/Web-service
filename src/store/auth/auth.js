@@ -58,16 +58,31 @@ const actions = {
   register ({ commit }, data) {
     return new Promise((resolve, reject) => {
       API_URL.post(`auth/register`, data)
+        .catch((error) => {
+          console.log(error)
+          reject(error)
+        })
+    })
+  },
+  register_continue ({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      const href = location.href
+      const index = href.split('=')
+      const url = index.splice(1, 2)
+      console.log(url[0])
+      API_URL.get(`auth/verify/` + url[0], data)
         .then((response) => {
           const token = response.data.token
           localStorage.setItem('user-token', token)
           commit('AUTH_SUCCESS', token)
           API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + token
           console.log(response.data)
+          console.log(123)
           resolve(response)
         })
         .catch((error) => {
           console.log(error)
+          console.log(321)
           reject(error)
         })
     })

@@ -1,8 +1,10 @@
 <template>
   <div class="row q-ma-lg">
     <div class="col-3  q-ma-lg">
-      <div class="q-ma-md">
-        <img class="photo" :src="users[0].avatar_url">
+      <div class="q-ma-md ellipse">
+        <div class="border-photo">
+          <img class="photo q-ma-xs" :src="users[0].avatar_url">
+        </div>
       </div>
       <div class="text-h5 q-ma-md"> {{users[0].first_name}} {{users[0].last_name}}
       </div>
@@ -34,11 +36,17 @@
 
       <q-tab-panels v-model="tab" animated class=" col-7">
       <q-tab-panel name="courses">
-        <q-card class="my-card q-my-lg text-dark">
-          <q-card-section class="q-pa-md">
-            <div class="text-h5 txt">{{users[0].courses}}</div>
-            <div class="text-sublime2 txt"></div>
-          </q-card-section>
+        <q-card inline class="my-card q-my-lg text-dark" v-for="(course, index) in courses"
+                :key="index">
+          <div class="row q-pa-md">
+            <div>
+              <div class="kvadrat"></div>
+            </div>
+            <div class=" col-8 q-mx-md">
+              <div class="text-h4 text-black">{{courses[index].title}}</div>
+              <div class="text-sublime1 text-dark q-my-sm">Продолжай обучение!</div>
+            </div>
+          </div>
         </q-card>
       </q-tab-panel>
 
@@ -90,7 +98,11 @@ export default {
   data () {
     return {
       tab: 'courses',
-      splitterModel: 20
+      splitterModel: 20,
+      courses: [
+        { id: 1, title: 'Design' },
+        { id: 2, title: 'Back-end' }
+      ]
     }
   },
   computed: {
@@ -124,5 +136,22 @@ export default {
     height: 100px;
     border-radius: 50%;
     border: 1px solid black;
+  }
+  .border-photo {
+    width: 101px;
+    height: 101px;
+    border-radius: 50%;
+    border: 1px solid #ffffff00;
+  }
+  .ellipse {
+    background-image: url("../statics/images/Ellipse 15.png");
+    background-repeat: no-repeat;
+    width: 110px;
+    height: 110px;
+  }
+  .kvadrat {
+    width: 83px;
+    height: 88px;
+    background: rgba(0, 0, 0, 0.6);
   }
 </style>

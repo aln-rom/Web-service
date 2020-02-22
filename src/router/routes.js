@@ -29,6 +29,7 @@ const routes = [
           }
         }
       },
+      { path: 'registration_continue', component: () => import('pages/Registration_continue.vue') },
       { path: 'password', component: () => import('pages/Password.vue') },
       { path: 'registration_letter', component: () => import('pages/Registration_letter.vue') },
       { path: 'success', component: () => import('pages/Success.vue') },

@@ -27,20 +27,14 @@ export default {
     }
   },
   mounted () {
-    this.registerUserVK()
-    this.registerUserGoogle()
+    this.registerVK()
+    this.registerGoogle()
   },
   methods: {
     ...mapActions({
       registerVK: 'auth/registerVK',
       registerGoogle: 'auth/registerGoogle'
-    }),
-    registerUserVK () {
-      this.registerVK(this.user)
-    },
-    registerUserGoogle () {
-      this.registerGoogle(this.user)
-    }
+    })
   }
 }
 </script>

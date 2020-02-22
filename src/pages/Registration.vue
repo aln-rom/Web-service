@@ -74,9 +74,7 @@ export default {
     }),
     registerUser () {
       this.register(this.user)
-        .then(() => {
-          this.$router.push('/')
-        })
+      this.$router.push('/registration_continue')
     }
   }
 }
@@ -91,9 +89,6 @@ export default {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.25px;
-  }
-  .text-mini-y{
-    color: #FFA000;
   }
   .text-mini{
     color: rgba(0, 0, 0, 0.6);

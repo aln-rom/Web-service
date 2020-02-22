@@ -2,7 +2,7 @@
   <q-page class="q-col-gutter-sm q-ma-lg q-my-lg">
     <div class="row flex justify-center">
       <div class="q-ma-lg col-10 txt">
-      Поздравляем! Ваш аккаунт SpinIT активирован
+        Поздравляем! Ваш аккаунт SpinIT активирован
       </div>
     </div>
     <div class="row flex justify-center">
@@ -12,7 +12,7 @@
     </div>
     <div class="row flex justify-center">
       <div class="col-3">
-        <q-btn color="yellow" class="q-my-md q-mx-xs" size="16px" @click="registerUser" style="width: 100%" label="Завершить регистрацию" />
+        <q-btn color="yellow" class="q-my-md q-mx-xs" size="16px" to="/profile" style="width: 100%" label="Завершить регистрацию" />
       </div>
     </div>
   </q-page>
@@ -22,19 +22,13 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'PageIndex',
+  mounted () {
+    this.register2()
+  },
   methods: {
     ...mapActions({
-      register1: 'auth/register2'
-    }),
-    registerUser () {
-      this.register1(this.user)
-        .then(() => {
-          this.$router.push('/')
-        })
-    }
-  },
-  mounted () {
-    this.registerUser()
+      register2: 'auth/register_continue'
+    })
   }
 }
 </script>
