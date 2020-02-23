@@ -23,6 +23,20 @@ const actions = {
           reject(error)
         })
     })
+  },
+  updateUser ({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      API_URL.put('users/update', data)
+        .then((response) => {
+          API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('user-token')
+          console.log(response)
+          resolve(response)
+        })
+        .catch((error) => {
+          console.log(error)
+          reject(error)
+        })
+    })
   }
 }
 

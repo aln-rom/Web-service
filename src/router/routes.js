@@ -43,6 +43,7 @@ const routes = [
             next(true)
           }
         } },
+      { path: 'redact', component: () => import('pages/Redact.vue') },
       { path: 'coursepage',
         component: () => import('pages/CoursePage.vue'),
         children: [

@@ -2,16 +2,18 @@
   <div class="row q-ma-lg">
     <div class="col-3  q-ma-lg">
       <div class="q-ma-md ellipse">
-        <div class="border-photo">
-          <img class="photo q-ma-xs" :src="users[0].avatar_url">
+        <div class="border-photo" :v-if="users[0].avatar_url">
+          <img class="photo q-ma-xs" :src="users[0].avatar_url" >
         </div>
       </div>
       <div class="text-h5 q-ma-md"> {{users[0].first_name}} {{users[0].last_name}}
       </div>
       <div class="text-sublime1 text-dark q-ma-md" >{{users[0].email}}
       </div>
+      <div class="text-sublime1 text-dark q-ma-md" >{{users[0].phone_number}}
+      </div>
       <div class="row">
-          <q-btn color="yellow" outline class="q-mx-md q-my-md" to="/edit" style="width: 100%" label="Редактировать" />
+          <q-btn color="yellow" outline class="q-mx-md q-my-md" to="/redact" style="width: 100%" label="Редактировать" />
         <q-separator class="q-ma-md"/>
       </div>
       <div class="text-h6 q-mx-md"> Последние достижения</div>
@@ -36,14 +38,13 @@
 
       <q-tab-panels v-model="tab" animated class=" col-7">
       <q-tab-panel name="courses">
-        <q-card inline class="my-card q-my-lg text-dark" v-for="(course, index) in courses"
-                :key="index">
+        <q-card inline class="my-card q-my-lg text-dark" v-if="cur">
           <div class="row q-pa-md">
             <div>
               <div class="kvadrat"></div>
             </div>
             <div class=" col-8 q-mx-md">
-              <div class="text-h4 text-black">{{courses[index].title}}</div>
+              <div class="text-h4 text-black">{{users[0].courses[0].title}}</div>
               <div class="text-sublime1 text-dark q-my-sm">Продолжай обучение!</div>
             </div>
           </div>
@@ -102,7 +103,8 @@ export default {
       courses: [
         { id: 1, title: 'Design' },
         { id: 2, title: 'Back-end' }
-      ]
+      ],
+      cur: null
     }
   },
   computed: {
@@ -126,6 +128,9 @@ export default {
   },
   mounted () {
     this.getUser()
+      .then(() => {
+        this.cur = this.users[0].courses
+      })
   }
 }
 </script>

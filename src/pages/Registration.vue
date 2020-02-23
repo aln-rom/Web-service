@@ -7,8 +7,8 @@
           <div class="text-mini q-my-md">Чтобы продолжить работу с платформой, заполните свои личные данные</div>
           <div class="text-mini q-my-md">Ваш пол</div>
           <div class="q-gutter-sm">
-            <q-radio keep-color v-model="color" val="male" label="Мужской" color="yellow" />
-            <q-radio keep-color v-model="color" val="female" label="Женский" color="yellow" />
+            <q-radio keep-color v-model="user.gender" val="male" label="Мужской" color="yellow" />
+            <q-radio keep-color v-model="user.gender" val="female" label="Женский" color="yellow" />
           </div>
           <q-input outlined type="text" class=" q-my-md" v-model="user.email" placeholder="Введите ваш е-mail" />
           <q-input v-model="user.password"  :type="isPwd ? 'password' : 'text'"
@@ -57,6 +57,7 @@ export default {
       user: {
         password: null,
         email: null,
+        gender: null,
         password_confirmation: null,
         first_name: null,
         last_name: null,
@@ -74,7 +75,9 @@ export default {
     }),
     registerUser () {
       this.register(this.user)
-      this.$router.push('/registration_continue')
+        .then(() => {
+          this.$router.push('/registration_continue')
+        })
     }
   }
 }
