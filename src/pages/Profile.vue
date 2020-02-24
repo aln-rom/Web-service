@@ -1,16 +1,19 @@
 <template>
   <div class="row q-ma-lg">
     <div class="col-3  q-ma-lg">
-      <div class="q-ma-md ellipse">
-        <div class="border-photo" :v-if="users[0].avatar_url">
-          <img class="photo q-ma-xs" :src="users[0].avatar_url" >
+      <div class="q-ma-md ellipse" >
+        <div class="border-photo" v-if="avatar">
+          <img class="photo q-ma-xs" :src="avatar" >
+        </div>
+        <div class="border-photo" v-else>
+          <img class="photo q-ma-xs" src="../statics/images/avatar.png" >
         </div>
       </div>
-      <div class="text-h5 q-ma-md"> {{users[0].first_name}} {{users[0].last_name}}
+      <div class="text-h5 q-ma-md"> {{user.first_name}} {{user.last_name}}
       </div>
-      <div class="text-sublime1 text-dark q-ma-md" >{{users[0].email}}
+      <div class="text-sublime1 text-dark q-ma-md" >{{user.email}}
       </div>
-      <div class="text-sublime1 text-dark q-ma-md" >{{users[0].phone_number}}
+      <div class="text-sublime1 text-dark q-ma-md" >{{user.phone_number}}
       </div>
       <div class="row">
           <q-btn color="yellow" outline class="q-mx-md q-my-md" to="/redact" style="width: 100%" label="Редактировать" />
@@ -38,13 +41,13 @@
 
       <q-tab-panels v-model="tab" animated class=" col-7">
       <q-tab-panel name="courses">
-        <q-card inline class="my-card q-my-lg text-dark" v-if="cur">
+        <q-card inline class="my-card q-my-lg text-dark" v-for="(course, index) in user.courses" :key="index">
           <div class="row q-pa-md">
             <div>
               <div class="kvadrat"></div>
             </div>
             <div class=" col-8 q-mx-md">
-              <div class="text-h4 text-black">{{users[0].courses[0].title}}</div>
+              <div class="text-h4 text-black">{{course.title}}</div>
               <div class="text-sublime1 text-dark q-my-sm">Продолжай обучение!</div>
             </div>
           </div>
@@ -104,12 +107,13 @@ export default {
         { id: 1, title: 'Design' },
         { id: 2, title: 'Back-end' }
       ],
-      cur: null
+      cur: null,
+      avatar: false
     }
   },
   computed: {
     ...mapGetters({
-      users: 'user/users'
+      user: 'user/user'
     })
   },
   methods: {
@@ -129,7 +133,12 @@ export default {
   mounted () {
     this.getUser()
       .then(() => {
-        this.cur = this.users[0].courses
+        this.cur = this.user.courses
+        if (this.user.avatar_url !== null) {
+          this.avatar = this.user.avatar_url
+        } else {
+          this.avatar = false
+        }
       })
   }
 }

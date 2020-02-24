@@ -1,11 +1,11 @@
 import API_URL from '../../boot/api'
 
 const state = {
-  users: null
+  user: null
 }
 
 const getters = {
-  users: state => state.users
+  user: state => state.user
 }
 
 const actions = {
@@ -15,9 +15,9 @@ const actions = {
         API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('user-token')
       }
       API_URL.get('auth/user', data)
-        .then(responese => {
-          commit('GET_USER', responese.data)
-          resolve(responese)
+        .then(response => {
+          commit('GET_USER', response.data.data)
+          resolve(response)
         })
         .catch(error => {
           reject(error)
@@ -42,7 +42,7 @@ const actions = {
 
 const mutations = {
   GET_USER (state, payload) {
-    state.users = Object.values(payload)
+    state.user = payload
   }
 }
 
