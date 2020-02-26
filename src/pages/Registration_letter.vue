@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row flex justify-center">
-      <div class="grey-txt q-ma-lg col-6">
+      <div class="grey-txt q-ma-lg col-7">
         Изучай новые темы, получай баллы и зарабатывай бонусы, читай статьи в блоге и смотри трансляции!
       </div>
     </div>
@@ -40,9 +40,19 @@ export default {
     line-height: 72px;
   }
   .grey-txt {
+    font-style: normal;
+    font-weight: normal;
     font-size: 24px;
     line-height: 24px;
-    color: rgba(0, 0, 0, 0.6);
+    /* or 100% */
+
+    display: flex;
+    align-items: center;
     text-align: center;
+    letter-spacing: 0.18px;
+
+    /* Black - Medium Emphasis */
+
+    color: rgba(0, 0, 0, 0.6);
   }
 </style>

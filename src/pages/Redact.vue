@@ -32,21 +32,23 @@
           <q-tab-panel name="info">
             <div class="row flex justify-center">
               <div class="col-5">
-                <q-card flat class="my-card col-4 q-col-gutter-md q-my-md q-py-xl q-mx-md">
-                  <div class="q-gutter-sm">
-                    <q-radio keep-color clearable v-model="client.gender" val="male" label="Мужской" color="yellow" />
-                    <q-radio keep-color clearable v-model="client.gender" val="female" label="Женский" color="yellow" />
+                <q-card flat class="my-card q-my-md q-mx-md">
+                  <div class="q-col-gutter-md">
+                    <div class="q-gutter-sm">
+                      <q-radio keep-color clearable v-model="client.gender" val="male" label="Мужской" color="yellow" />
+                      <q-radio keep-color clearable v-model="client.gender" val="female" label="Женский" color="yellow" />
+                    </div>
+                    <q-input clearable  outlined v-model="client.first_name" label="Имя" />
+                    <q-input clearable  outlined v-model="client.last_name" label="Фамилия" />
+                    <q-input clearable  outlined v-model="client.email" label="E-mail" />
+                    <q-input clearable  outlined v-model="client.phone_number" label="Телефон" />
+                    <q-input clearable type="date" outlined v-model="client.birth_date" />
                   </div>
-                  <q-input clearable  outlined v-model="client.first_name" label="Имя" />
-                  <q-input clearable  outlined v-model="client.last_name" label="Фамилия" />
-                  <q-input clearable  outlined v-model="client.email" label="E-mail" />
-                  <q-input clearable  outlined v-model="client.phone_number" label="Телефон" />
-                  <q-input clearable type="date" outlined v-model="client.birth_date" />
-                  <q-btn color="yellow" class="q-my-md q-mx-md" size="16px" @click="updateUser" style="width: 100%" label="Сохранить изменения" />
-                </q-card>
+                  <q-btn color="yellow" class="q-my-lg " size="16px" @click="updateUser" style="width: 100%" label="Сохранить изменения" />
 
-              </div>
-            </div>
+                </q-card>
+                </div>
+                   </div>
 
             <q-dialog v-model="dialog">
               <q-card>

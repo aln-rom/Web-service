@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row flex justify-center">
-      <div class="grey-txt q-ma-lg col-6">
+      <div class="grey-txt q-ma-lg col-7">
         Изучай новые темы, получай баллы и зарабатывай бонусы, читай статьи в блоге и смотри трансляции!
       </div>
     </div>

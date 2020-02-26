@@ -52,6 +52,14 @@
             </div>
           </div>
         </q-card>
+        <div class="flex justify-center row" v-if="!cur">
+          <div class="text-h5 choise col-12 text-black q-my-lg flex justify-center">
+            <b>К сожалению, вы пока не выбрали ни одного нашего курса </b>
+          </div>
+          <div class=" flex justify-center">
+            <q-btn color="yellow" class="q-my-lg q-mx-lg" size="16px" style="" label="Выбрать курс" />
+          </div>
+         </div>
       </q-tab-panel>
 
       <q-tab-panel name="progress">
@@ -140,6 +148,7 @@ export default {
           this.avatar = false
         }
       })
+    console.log(navigator.userAgent)
   }
 }
 </script>
@@ -167,5 +176,11 @@ export default {
     width: 83px;
     height: 88px;
     background: rgba(0, 0, 0, 0.6);
+  }
+  .choise {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
   }
 </style>
