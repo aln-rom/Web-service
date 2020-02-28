@@ -11,7 +11,6 @@ const getters = {
 const mutations = {
   AUTH_SUCCESS (state, data) {
     state.token = data.token
-    state.message = data.message
   },
   AUTH_LOGOUT (state) {
     state.token = ''

@@ -13,11 +13,13 @@
             <q-route-tab  to="/about"  label="КОНТАКТЫ" size="md"/>
           </q-btn-group>
           <q-btn-group class="offset-4 col-3  flex justify-end q-px-md" unelevated>
-            <q-route-tab to="/">
-              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.375 14.5H15.3875L15.0375 14.1625C16.2625 12.7375 17 10.8875 17 8.875C17 4.3875 13.3625 0.75 8.875 0.75C4.3875 0.75 0.75 4.3875 0.75 8.875C0.75 13.3625 4.3875 17 8.875 17C10.8875 17 12.7375 16.2625 14.1625 15.0375L14.5 15.3875V16.375L20.75 22.6125L22.6125 20.75L16.375 14.5ZM8.875 14.5C5.7625 14.5 3.25 11.9875 3.25 8.875C3.25 5.7625 5.7625 3.25 8.875 3.25C11.9875 3.25 14.5 5.7625 14.5 8.875C14.5 11.9875 11.9875 14.5 8.875 14.5Z" fill="white"/>
+            <q-btn flat round @click="showSearch">
+            <q-icon>
+              <svg  xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.375 14.5H15.3875L15.0375 14.1625C16.2625 12.7375 17 10.8875 17 8.875C17 4.3875 13.3625 0.75 8.875 0.75C4.3875 0.75 0.75 4.3875 0.75 8.875C0.75 13.3625 4.3875 17 8.875 17C10.8875 17 12.7375 16.2625 14.1625 15.0375L14.5 15.3875V16.375L20.75 22.6125L22.6125 20.75L16.375 14.5ZM8.875 14.5C5.7625 14.5 3.25 11.9875 3.25 8.875C3.25 5.7625 5.7625 3.25 8.875 3.25C11.9875 3.25 14.5 5.7625 14.5 8.875C14.5 11.9875 11.9875 14.5 8.875 14.5Z" fill="#e2e2e2"/>
               </svg>
-            </q-route-tab>
+            </q-icon>
+            </q-btn>
             <q-route-tab v-if="token" to="/">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M15 27.5C16.375 27.5 17.5 26.375 17.5 25H12.5C12.5 26.375 13.625 27.5 15 27.5ZM22.5 20V13.75C22.5 9.9125 20.4625 6.7 16.875 5.85V5C16.875 3.9625 16.0375 3.125 15 3.125C13.9625 3.125 13.125 3.9625 13.125 5V5.85C9.55 6.7 7.5 9.9 7.5 13.75V20L5 22.5V23.75H25V22.5L22.5 20ZM20 21.25H10V13.75C10 10.65 11.8875 8.125 15 8.125C18.1125 8.125 20 10.65 20 13.75V21.25Z" fill="white"/>
@@ -32,6 +34,16 @@
         </q-tabs>
       </q-toolbar>
     </q-header>
+
+    <div v-if="search" class="search q-my-xl">
+          <div class="flex input-search text-white q-ma-md">
+            <q-input borderless
+                     class="input-search text-white q-mx-sm col-12"
+                     v-model="text"
+                     placeholder="Например: дизайн, front end, маркетинг"
+            />
+          </div>
+    </div>
 
     <q-page-container>
       <router-view />
@@ -56,7 +68,6 @@
             </div>
       </q-toolbar>
     </q-footer>
-
   </q-layout>
 </template>
 
@@ -68,7 +79,14 @@ export default {
   data () {
     return {
       leftDrawerOpen: false,
-      showBell: false
+      showBell: false,
+      search: false,
+      text: ''
+    }
+  },
+  watch: {
+    token: function () {
+      return this.token
     }
   },
   computed: {
@@ -76,9 +94,13 @@ export default {
       token: 'auth/token'
     })
   },
-  watch: {
-    token: function () {
-      return this.token
+  methods: {
+    showSearch () {
+      if (this.search === false) {
+        this.search = true
+      } else {
+        this.search = false
+      }
     }
   }
 }
@@ -107,5 +129,20 @@ export default {
     line-height: 16px;
     letter-spacing: 0.4px;
     color: rgba(0, 0, 0, 0.6)
+  }
+  .search {
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    border-top: 3px solid white;
+    height: 90px;
+    background: #424242;
+    color: white;
+  }
+  input::placeholder {
+    color: white;
+  }
+  .input-search {
+    width: 400px;
   }
 </style>
