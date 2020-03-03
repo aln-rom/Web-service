@@ -64,38 +64,30 @@
 
       <q-tab-panel name="progress">
         <q-stepper
+            flat
+            alternative-labels
+            active-color="grey-7"
             v-model="step"
-            ref="stepper"
-            animated
-            active-color="purple">
+        >
           <q-step
               :name="1"
-              prefix="1"
-              title="Новичок"
-          > </q-step>
+              title="Смотри видео и выполняй задания "
+              prefix="1"/>
           <q-step
               :name="2"
-              prefix="2"
-              title="Знаток"
-          > </q-step>
+              title="Зарабатывай достижения"
+              prefix="2"/>
           <q-step
               :name="3"
-              prefix="3"
-              title="Профи"
-          > </q-step>
+              title="Получай важные знания"
+              prefix="2" />
         </q-stepper>
       </q-tab-panel>
 
       <q-tab-panel name="favorites">
-        <div class="q-pa-md">
-          <div class="row q-gutter-sm">
-            <q-card class="q-ma-sm col-5" v-for="index in 2" :key="index">
-              <img src="https://cdn.quasar.dev/img/mountains.jpg">
-              <q-card-section>
-                <div class="text-h6">Cтатья </div>
-                <div class="text-subtitle2">by John Doe</div>
-              </q-card-section>
-            </q-card>
+        <div class="q-gutter-md">
+          <div class="row">
+            <Article v-for="index in 4" :key="index"/>
           </div>
         </div>
       </q-tab-panel>
@@ -105,8 +97,12 @@
 </template>
 
 <script>
+import Article from '../components/articleCard.vue'
 import { mapGetters, mapActions } from 'vuex'
 export default {
+  components: {
+    Article
+  },
   data () {
     return {
       tab: 'courses',
@@ -116,7 +112,8 @@ export default {
         { id: 2, title: 'Back-end' }
       ],
       cur: null,
-      avatar: false
+      avatar: false,
+      step: 1
     }
   },
   computed: {

@@ -1,8 +1,8 @@
 <template>
-  <q-page class="q-my-xl">
+  <q-page class="q-my-md">
     <div v-if="!next" class="row flex justify-center">
       <div class="col-4">
-        <q-card flat class="my-card col-4 q-col-gutter-xs q-my-xl q-py-xl">
+        <q-card flat class="my-card col-4 q-col-gutter-xs q-my-lg q-py-xl">
           <q-tabs
               v-model="tab"
               class="text-dark title-button q-mx-md"
@@ -18,7 +18,18 @@
             <q-tab-panel name="login">
               <div class="text-mini">Авторизуйтесь в системе для доступа к образовательным курсам</div>
               <q-input outlined type="text" class=" q-my-md" v-model="user.email" placeholder="Введите ваш e-mail..." />
-              <q-input outlined type="text" class="q-my-md" v-model="user.password" placeholder="Введите ваш пароль..." />
+              <q-input v-model="user.password"  :type="isPwd ? 'password' : 'text'"
+                       placeholder="Введите пароль..."
+                       outlined
+                       class="q-my-md">
+                <template v-slot:append>
+                  <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
               <div class="text-mini-y">Я забыл свой пароль </div>
               <q-btn color="yellow" class="q-my-md q-mx-xs" size="16px" @click="loginUser" style="width: 100%" label="Войти" />
               <div class="text-mini">Войти через социальные сети</div>
