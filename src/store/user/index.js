@@ -37,6 +37,35 @@ const actions = {
           reject(error)
         })
     })
+  },
+  updateAvatar ({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      API_URL.post('users/update-avatar', data)
+        .then((response) => {
+          API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('user-token')
+          console.log(response)
+          resolve(response)
+        })
+        .catch((error) => {
+          console.log(error)
+          reject(error)
+        })
+    })
+  },
+  likeArticle ({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      if (localStorage.getItem('user-token')) {
+        API_URL.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('user-token')
+      }
+      API_URL.get('post/' + localStorage.getItem('user-token') + '/like', data)
+        .then(response => {
+          commit('GET_USER', response.data.data)
+          resolve(response)
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
   }
 }
 

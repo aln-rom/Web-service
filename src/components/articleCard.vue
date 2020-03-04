@@ -1,6 +1,20 @@
 <template>
   <q-card flat class="my-card col-4 q-col-gutter-sm q-my-sm">
-    <img src="../statics/images/Rectangle 12.png">
+    <q-img src="../statics/images/Rectangle 12.png" native-context-menu>
+      <q-icon class="absolute all-pointer-events" style="right: 4px">
+        <q-rating
+            v-model="model3"
+            max="1"
+            size="2em"
+            color="yellow"
+            color-selected="yellow"
+            icon="favorite_border"
+            icon-selected="favorite"
+            icon-half="favorite"
+            no-dimming
+        />
+      </q-icon>
+    </q-img>
     <q-card-section class="q-col-gutter-sm">
       <div class="text-h5 zglvk q-ma-sm"> <b>Имя его Debater, и он пришел побеждать в спорах </b></div>
       <div class="article-txt q-ma-sm">Кембриджский дискуссионный клуб провёл очередной эксперимент. В ходе...</div>

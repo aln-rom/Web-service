@@ -20,11 +20,16 @@
               </svg>
             </q-icon>
             </q-btn>
-            <q-route-tab v-if="token" to="/">
+            <q-btn v-if="token" flat round style="width: 30%">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M15 27.5C16.375 27.5 17.5 26.375 17.5 25H12.5C12.5 26.375 13.625 27.5 15 27.5ZM22.5 20V13.75C22.5 9.9125 20.4625 6.7 16.875 5.85V5C16.875 3.9625 16.0375 3.125 15 3.125C13.9625 3.125 13.125 3.9625 13.125 5V5.85C9.55 6.7 7.5 9.9 7.5 13.75V20L5 22.5V23.75H25V22.5L22.5 20ZM20 21.25H10V13.75C10 10.65 11.8875 8.125 15 8.125C18.1125 8.125 20 10.65 20 13.75V21.25Z" fill="white"/>
               </svg>
-            </q-route-tab>
+              <q-popup-proxy>
+                <q-banner style="width: auto">
+                  Нет новых уведомлений
+                </q-banner>
+              </q-popup-proxy>
+            </q-btn>
             <q-route-tab to="/profile" >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M10 10C12.7625 10 15 7.7625 15 5C15 2.2375 12.7625 0 10 0C7.2375 0 5 2.2375 5 5C5 7.7625 7.2375 10 10 10ZM10 12.5C6.6625 12.5 0 14.175 0 17.5V20H20V17.5C20 14.175 13.3375 12.5 10 12.5Z" fill="white"/>

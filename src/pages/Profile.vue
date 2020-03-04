@@ -85,9 +85,9 @@
       </q-tab-panel>
 
       <q-tab-panel name="favorites">
-        <div class="q-gutter-md">
+        <div class="">
           <div class="row">
-            <Article v-for="index in 4" :key="index"/>
+            <Article v-for="index in 4" :key="index" class="q-ma-xs"/>
           </div>
         </div>
       </q-tab-panel>
@@ -107,10 +107,6 @@ export default {
     return {
       tab: 'courses',
       splitterModel: 20,
-      courses: [
-        { id: 1, title: 'Design' },
-        { id: 2, title: 'Back-end' }
-      ],
       cur: null,
       avatar: false,
       step: 1

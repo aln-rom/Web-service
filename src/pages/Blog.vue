@@ -25,12 +25,12 @@
                 </div>
                 <div class="col-8">
                   <div class="row">
-                    <q-card class="q-my-sm col-12" v-for="index in 4" :key="index"
+                    <q-card class="q-my-sm col-12"
                     >
                       <img src="https://cdn.quasar.dev/img/mountains.jpg"
                            style="max-height: 200px">
                       <q-card-section>
-                        <div class="text-h6">Cтатья </div>
+                        <div class="text-h6">{{post}} </div>
                         <div class="text-subtitle2">by John Doe</div>
                       </q-card-section>
                     </q-card>
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -92,6 +93,20 @@ export default {
         'Front-end', 'Back-end', 'Mobile', 'Design', 'SMM'
       ]
     }
+  },
+  computed: {
+    ...mapGetters({
+      posts: 'posts/posts'
+    })
+  },
+  methods: {
+    ...mapActions({
+      getPosts: 'posts/getPosts'
+    })
+  },
+  mounted () {
+    this.getPosts()
+    console.log(this.posts)
   }
 }
 </script>
